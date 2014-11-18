@@ -140,13 +140,14 @@ public final class MemberFilterer {
         Field entityDeclaredField = Member.class.getDeclaredField(fieldName);
         Class type = entityDeclaredField.getType();
 
+        Path field = targetEntity.get(fieldName);
         if (type.getName().equals("java.lang.Long") || type.getName().equals("java.lang.Integer")) {
             // ToDo: this is a potential bug where we treat Integer as Long
-            Path field = targetEntity.<Long>get(fieldName);
             addExactNumericPredicate(field, value);
-        } else {
-            Path field = targetEntity.<String>get(fieldName);
+        } else if (type.getName().equals("java.lang.String")) {
             addStringLikePredicate(field, value);
+        } else {
+            throw new RuntimeException("Unsupported type " + type.getName() + " for column " + fieldName);
         }
     }
 
