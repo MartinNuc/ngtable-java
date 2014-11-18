@@ -1,0 +1,12 @@
+.classpath
+.settings
+.project
+target
+# Intellij
+.idea/
+*.iml
+*.iws
+
+classes
+
+.DS_Store
