@@ -1,0 +1,22 @@
+<div loading-container="tableParams.settings().$loading">
+    <table ng-table="tableParams" show-filter="true" class="table">
+        <tbody>
+        <tr ng-repeat="user in $data">
+            <td data-title="'Name'" filter="{ 'name': 'text' }" sortable="'name'">
+                {{user.name}}
+            </td>
+            <td data-title="'Email'" filter="{ 'email': 'text' }" sortable="'email'">
+                {{user.email}}
+            </td>
+            <td data-title="'Age'" filter="{ 'age': 'text' }" sortable="'age'">
+                {{user.age}}
+            </td>
+            <td data-title="'Cars'" filter="{ 'cars.name': 'text' }" sortable="'cars.name'">
+                <div ng-repeat="car in user.cars">
+                    {{car.name}},
+                </div>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
