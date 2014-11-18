@@ -109,7 +109,8 @@ public final class MemberFilterer {
 
         Iterator<Map.Entry<String, String>> it = filterByFields.entrySet().iterator();
         while (it.hasNext()) {
-            addPredicateForFilteringByField(it.next());
+            Map.Entry<String, String> filter = it.next();
+            addPredicateForFilteringByField(filter.getKey(), filter.getValue());
             it.remove();
         }
     }
@@ -118,14 +119,12 @@ public final class MemberFilterer {
         predicate = cb.equal(cb.literal(1), 1);
     }
 
-    private void addPredicateForFilteringByField(Map.Entry<String, String> pair) {
+    private void addPredicateForFilteringByField(String fieldName, String filterValue) {
         try {
-            addPredicate(memberRoot, pair.getKey(), pair.getValue());
+            addPredicate(memberRoot, fieldName, filterValue);
         } catch (NoSuchFieldException e) {
-            String stringPath = pair.getKey();  // eg. "cars.name"
-            String filterValue = pair.getValue();
-
-            String[] segments = stringPath.split("\\."); // results in: ["cars", "name"]
+            // may be in cars.name format
+            String[] segments = fieldName.split("\\."); // results in: ["cars", "name"]
             Path field = findTargetEntityFromName(segments[0]);
             String columnName = segments[1];
 
