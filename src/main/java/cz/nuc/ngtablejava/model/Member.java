@@ -31,7 +31,6 @@ import java.util.List;
 @SuppressWarnings("serial")
 @Entity
 @XmlRootElement
-@XmlAccessorType(XmlAccessType.FIELD)
 @Table(uniqueConstraints = @UniqueConstraint(columnNames = "email"))
 public class Member implements Serializable {
 

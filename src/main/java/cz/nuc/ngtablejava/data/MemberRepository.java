@@ -35,6 +35,5 @@ public class MemberRepository {
         MemberFilterer filter = new MemberFilterer(em, param);
         totalCountHolder.value = filter.count();
         return filter.list();
-
     }
 }
